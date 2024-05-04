@@ -2,7 +2,6 @@ import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
 import PeopleCard from "../../components/PeopleCard";
-
 import "./style.scss";
 import EventList from "../../containers/Events";
 import Slider from "../../containers/Slider";
@@ -116,13 +115,18 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
+        {/* Ajout d'une structure conditionnel pour vérifié si "last" est defini */}
+        {
+          last && (
+            <EventCard
+          imageSrc={last.cover}
+          title={last.title}
+          date={new Date(last.date)}
           small
           label="boom"
         />
+          )
+        }
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>

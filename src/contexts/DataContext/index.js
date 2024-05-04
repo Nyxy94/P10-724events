@@ -19,9 +19,15 @@ export const api = {
 export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  // Ajout de l'état pour stocker la dernière prestation
+  const [last, setLast] = useState(null);
+
   const getData = useCallback(async () => {
     try {
-      setData(await api.loadData());
+      const eventData = await api.loadData();
+      setData(eventData); // Mettre a jour l'état 'data'
+      // Déterminez la dernière prestation à partir des données des événements
+      setLast(eventData.events[eventData.events.length - 1])
     } catch (err) {
       setError(err);
     }
@@ -37,6 +43,7 @@ export const DataProvider = ({ children }) => {
       value={{
         data,
         error,
+        last, // Ajout de last dans les valeurs fournies par le contexte de données
       }}
     >
       {children}
